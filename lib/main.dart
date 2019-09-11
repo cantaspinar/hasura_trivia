@@ -27,7 +27,8 @@ class _AuthCheckState extends State<AuthCheck> {
   Future<FirebaseUser> checkCurrentUser() async {
     try {
       user = await _firebaseAuth.currentUser();
-      token = await user.getIdToken();
+      IdTokenResult tokenResult = await user.getIdToken();
+      token = tokenResult.token;
       return user;
     } catch (e) {
       print(e);
