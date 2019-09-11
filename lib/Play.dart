@@ -79,7 +79,7 @@ class Play extends StatelessWidget {
               'userID': user.uid,
             },
           ),
-          builder: (QueryResult result, {VoidCallback refetch}) {
+          builder: (QueryResult result, {VoidCallback refetch, FetchMore fetchMore}) {
             if (result.errors != null) {
               return Center(child: Text(result.errors.toString()));
             }
