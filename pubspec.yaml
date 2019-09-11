@@ -19,8 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  graphql_flutter: ^1.0.0
-  firebase_auth: ^0.11.1+11
+  graphql_flutter: ^2.1.0
+  firebase_auth: ^0.14.0+5
   cloud_functions: ^0.4.1
 
   
