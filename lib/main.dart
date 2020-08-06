@@ -79,17 +79,20 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HttpLink httpLink = HttpLink(
-      uri: 'https://<app-name>.herokuapp.com/v1/graphql',
+      uri: 'https://hasura-quiz-app.herokuapp.com/v1/graphql',
     );
 
     final WebSocketLink websocketLink = WebSocketLink(
-      url: 'wss://<app-name>.herokuapp.com/v1/graphql',
+      url: 'wss://hasura-quiz-app.herokuapp.com/v1/graphql',
       config: SocketClientConfig(
-          autoReconnect: true,
-          inactivityTimeout: Duration(seconds: 30),
-          initPayload: {
+        autoReconnect: true,
+        inactivityTimeout: Duration(seconds: 30),
+        initPayload: () {
+          return {
             "headers": {"Authorization": 'Bearer ' + token}
-          }),
+          };
+        },
+      ),
     );
 
     final AuthLink authLink = AuthLink(

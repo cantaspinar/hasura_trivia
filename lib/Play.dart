@@ -24,7 +24,7 @@ class Play extends StatelessWidget {
       }
       """;
       final MutationOptions options = MutationOptions(
-        document: addAnswer,
+        documentNode: gql(addAnswer),
         variables: <String, dynamic>{
           'questionID': questionID,
           'answerID': answerID,
@@ -32,9 +32,10 @@ class Play extends StatelessWidget {
         },
       );
       final QueryResult result = await client.mutate(options);
-      if (result.hasErrors) {
-        print(result.errors);
-      } else {}
+
+      if (result.hasException) {
+        print(result.exception);
+      }
     }
 
     String getQuestion = """
@@ -74,14 +75,15 @@ class Play extends StatelessWidget {
         child: Query(
           options: QueryOptions(
             fetchPolicy: FetchPolicy.networkOnly,
-            document: getQuestion,
+            documentNode: gql(getQuestion),
             variables: {
               'userID': user.uid,
             },
           ),
-          builder: (QueryResult result, {VoidCallback refetch, FetchMore fetchMore}) {
-            if (result.errors != null) {
-              return Center(child: Text(result.errors.toString()));
+          builder: (QueryResult result,
+              {VoidCallback refetch, FetchMore fetchMore}) {
+            if (result.exception != null) {
+              return Center(child: Text(result.exception.toString()));
             }
 
             if (result.loading) {
